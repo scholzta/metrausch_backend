@@ -19,5 +19,6 @@ export class UsersController {
     if (req.user.role !== 'admin') throw new UnauthorizedException('Admins only');
     return this.usersService.updateRole(id, role)
   }
+
 }
 

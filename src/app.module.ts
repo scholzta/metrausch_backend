@@ -7,6 +7,7 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { TicketsModule } from './tickets/tickets.module';
 import { BandsModule } from './bands/bands.module';
+import { ActivitiesModule } from './activities/activities.module';
 
 @Module({
   imports: [
@@ -30,7 +31,8 @@ import { BandsModule } from './bands/bands.module';
     UsersModule,
     AuthModule,
     TicketsModule,
-    BandsModule
+    BandsModule,
+    ActivitiesModule
   ],
   controllers: [AppController],
   providers: [AppService],
