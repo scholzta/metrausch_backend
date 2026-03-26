@@ -1,4 +1,4 @@
-import { Body, Post, Get, Request, Controller, UseGuards, UnauthorizedException, Patch, Param } from '@nestjs/common';
+import { Body, Post, Get, Request, Controller, UseGuards, UnauthorizedException, Patch, Param, ForbiddenException } from '@nestjs/common';
 import { TicketsService } from './tickets.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { CreateTicketDto } from './dto/create-ticket.dto';
@@ -31,5 +31,13 @@ export class TicketsController {
   async updateTicket(@Param('id') id: string, @Body() updateData: any, @Request() req) {
     if (req.user.role === 'user') throw new UnauthorizedException();
     return this.ticketsService.update(id, updateData);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Patch(':id/check-in')
+  async handleCheckIn(@Param('id') id: string, @Request() req) {
+    if (req.user.role !== 'admin') throw new ForbiddenException();
+
+    return this.ticketsService.checkIn(id);
   }
 }

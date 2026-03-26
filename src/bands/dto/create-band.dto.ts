@@ -13,4 +13,8 @@ export class CreateBandDto {
   @IsString()
   @IsOptional()
   description?: string;
+
+  @IsString()
+  @IsOptional()
+  imageUrl?: string;
 }

@@ -8,6 +8,9 @@ import { AuthModule } from './auth/auth.module';
 import { TicketsModule } from './tickets/tickets.module';
 import { BandsModule } from './bands/bands.module';
 import { ActivitiesModule } from './activities/activities.module';
+import { FestivalConfigModule } from './festivalConfig/festival-config.module';
+import { StagesModule } from './stages/stages.module';
+import { EventsModule } from './events/events.module';
 
 @Module({
   imports: [
@@ -32,7 +35,10 @@ import { ActivitiesModule } from './activities/activities.module';
     AuthModule,
     TicketsModule,
     BandsModule,
-    ActivitiesModule
+    ActivitiesModule,
+    StagesModule,
+    EventsModule,
+    FestivalConfigModule
   ],
   controllers: [AppController],
   providers: [AppService],

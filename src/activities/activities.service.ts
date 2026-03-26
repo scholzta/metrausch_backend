@@ -16,7 +16,7 @@ export class ActivitiesService {
       .createQueryBuilder('activity')
       .leftJoinAndSelect('activity.organizingUsers', 'user')
       .where('user.id = :userId', {userId })
-      .andWhere('activity.parentId IS NULL')
+      // .andWhere('activity.parentId IS NULL')
       .getMany();
   }
 
