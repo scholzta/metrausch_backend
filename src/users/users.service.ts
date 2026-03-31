@@ -30,6 +30,7 @@ export class UsersService {
     const newUser = this.usersRepository.create({
       ...userData,
       password: hashedPassword,
+      hasAccepterNewsletter: false,
     });
 
     const savedUser = await this.usersRepository.save(newUser);

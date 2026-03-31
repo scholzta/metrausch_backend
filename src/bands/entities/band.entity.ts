@@ -8,6 +8,9 @@ export class Band {
   @Column()
   name: string;
 
+  @Column({ nullable: true})
+  sub: string;
+
   @Column()
   genre: string;
 
@@ -16,6 +19,15 @@ export class Band {
 
   @Column({ nullable: true })
   imageUrl: string;
+
+  @Column({ nullable: true})
+  contactName: string;
+
+  @Column({ nullable: true})
+  contactPhone: string;
+
+  @Column({ nullable: true})
+  contactEmail: string;
 
   @CreateDateColumn()
   createdAt: Date;

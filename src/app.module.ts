@@ -11,6 +11,8 @@ import { ActivitiesModule } from './activities/activities.module';
 import { FestivalConfigModule } from './festivalConfig/festival-config.module';
 import { StagesModule } from './stages/stages.module';
 import { EventsModule } from './events/events.module';
+import { FaqModule } from './faq/faq.module';
+import { ShirtsModule } from './shirts/shirts.module';
 
 @Module({
   imports: [
@@ -38,7 +40,9 @@ import { EventsModule } from './events/events.module';
     ActivitiesModule,
     StagesModule,
     EventsModule,
-    FestivalConfigModule
+    FestivalConfigModule,
+    FaqModule,
+    ShirtsModule
   ],
   controllers: [AppController],
   providers: [AppService],

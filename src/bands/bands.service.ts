@@ -23,6 +23,7 @@ export class BandsService {
   async create(data: any) {
     const band = new Band();
     band.name = data.name;
+    band.sub = data.sub;
     band.genre = data.genre;
     band.description = data.description;
     band.imageUrl = data.imageUrl;

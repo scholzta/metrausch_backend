@@ -58,6 +58,9 @@ export class ActivitiesService {
       parent.name = suggestion.name;
       parent.organizerName = suggestion.organizerName;
       parent.description = suggestion.description;
+      parent.location = suggestion.location;
+      parent.contactPhone = suggestion.contactPhone;
+      parent.contactEmail = suggestion.contactEmail;
       parent.status = ActivityStatus.APPROVED;
 
       await this.activityRepository.save(parent);

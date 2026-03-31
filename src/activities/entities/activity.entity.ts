@@ -21,6 +21,15 @@ export class Activity {
   @Column({ type: 'text', nullable: true})
   description: string;
 
+  @Column({ type: 'text', nullable: true})
+  location: string;
+
+  @Column({ type: 'text', nullable: true})
+  contactPhone: string;
+
+  @Column({ type: 'text', nullable: true})
+  contactEmail: string;
+
   @Column({
     type: 'enum',
     enum: ActivityStatus,

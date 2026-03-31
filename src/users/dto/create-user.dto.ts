@@ -1,4 +1,4 @@
-import { IsEmail, IsNotEmpty, MinLength, IsString, isEmail } from "class-validator";
+import { IsEmail, IsNotEmpty, MinLength, IsString, isEmail, IsBoolean } from "class-validator";
 
 export class CreateUserDto {
   @IsEmail()
@@ -15,4 +15,7 @@ export class CreateUserDto {
   @IsString()
   @IsNotEmpty()
   lastName: string;
+
+  @IsBoolean()
+  hasAcceptedNewsletter: boolean;
 }

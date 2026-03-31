@@ -1,6 +1,34 @@
 TODO:
-- photo upload for bands does not work
+- overhaul shirt purchase
 
+- Activities: Approve for communal Voting
+
+- user settings: password change
+
+- Double Slot booking 
+
+- ticket kuenstler / helper
+
+- artist / helper code
+- code
+  - text feld
+  - rabatt in % pro Bereich (ticket, catering, shirt)
+  - limitierung
+  - ablaufdatum
+
+- csv export for every table
+- analyse 
+- faq
+- user fragen ins faq
+(- interactive stuff)
+- dto for every action
+
+REJECTED:
+- custom timetables
+- Ticket Newsletter (optional)
+    - Rechtliche Grundlage gerade zu aufwendig
+- guestbook
+  - auf spaeter verschoben
 
 
 <p align="center">

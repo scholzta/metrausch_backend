@@ -1,6 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, OneToMany } from 'typeorm';
 import { UserRole } from '../enums/role.enum';
 import { Ticket } from 'src/tickets/entities/ticket.entity';
+import { Shirt } from 'src/shirts/entities/shirt.entity';
 
 @Entity('users')
 export class User {
@@ -26,9 +27,15 @@ export class User {
   })
   role: UserRole;
 
+  @Column()
+  hasAccepterNewsletter: boolean;
+
   @CreateDateColumn()
   createdAt: Date;
 
   @OneToMany(() => Ticket, (ticket) => ticket.user)
   tickets: Ticket[];
+
+  @OneToMany(() => Shirt, (shirt) => shirt.user)
+  shirts: Shirt[];
 }
