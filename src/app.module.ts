@@ -13,6 +13,7 @@ import { StagesModule } from './stages/stages.module';
 import { EventsModule } from './events/events.module';
 import { FaqModule } from './faq/faq.module';
 import { ShirtsModule } from './shirts/shirts.module';
+import { PromoCodeModule } from './promo-code/promo-code.module';
 
 @Module({
   imports: [
@@ -42,7 +43,8 @@ import { ShirtsModule } from './shirts/shirts.module';
     EventsModule,
     FestivalConfigModule,
     FaqModule,
-    ShirtsModule
+    ShirtsModule,
+    PromoCodeModule
   ],
   controllers: [AppController],
   providers: [AppService],

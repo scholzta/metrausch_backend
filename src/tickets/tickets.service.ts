@@ -2,17 +2,32 @@ import { BadRequestException, Injectable, NotFoundException } from '@nestjs/comm
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Ticket } from './entities/ticket.entity';
-import { CreateTicketDto } from './dto/create-ticket.dto';
 import { User } from 'src/users/entities/user.entity';
+import { PromoCode } from 'src/promo-code/entities/promo-code.entity';
 
 @Injectable()
 export class TicketsService {
   constructor(
     @InjectRepository(Ticket)
     private ticketRepository: Repository<Ticket>,
+    @InjectRepository(PromoCode)
+    private codeRepository: Repository<PromoCode>
   ) {}
 
-  async create(createTicketDto: CreateTicketDto, user: User) {
+  async create(createTicketDto: any, user: User) {
+    if (createTicketDto.promoCode) {
+      const code =  await this.codeRepository.createQueryBuilder('promo_codes')
+      .where('promo_codes.secret = :secret', { secret: createTicketDto.promoCode})
+      .getOne();
+
+      if (code) {
+        if (code.usedCount >= code.usageLimit) return new BadRequestException("Code is invalid")
+        createTicketDto.price = createTicketDto.price - (createTicketDto.price /100 * code.discountPercent)
+        code.usedCount += 1;
+        this.codeRepository.update(code.id, code)
+      }
+    }
+
     const ticket = this.ticketRepository.create({
       ...createTicketDto,
       user: user,
@@ -31,6 +46,12 @@ export class TicketsService {
       relations: ['user'],
       order: { createdAt: 'DESC'}
     });
+  }
+
+  async remove(id: string) {
+    const ticket = await this.ticketRepository.findOne({ where: { id } });
+    if (!ticket) throw new NotFoundException();
+    return this.ticketRepository.remove(ticket);
   }
 
   async update(id: string, updateData: Partial<Ticket>) {
