@@ -21,7 +21,7 @@ async function bootstrap() {
   SwaggerModule.setup('api/docs', app, document)
 
   app.enableCors({
-    origin: 'http://localhost:5173',
+    origin: ['https://metrausch-festival.de' ],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true
   })
