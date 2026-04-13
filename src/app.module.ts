@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
@@ -14,6 +14,7 @@ import { EventsModule } from './events/events.module';
 import { FaqModule } from './faq/faq.module';
 import { ShirtsModule } from './shirts/shirts.module';
 import { PromoCodeModule } from './promo-code/promo-code.module';
+import { ClearCookiesMiddleware } from './clear-cookies/clear-cookies.middleware';
 
 @Module({
   imports: [
@@ -49,4 +50,10 @@ import { PromoCodeModule } from './promo-code/promo-code.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(ClearCookiesMiddleware)
+      .forRoutes('*');
+  }
+}
