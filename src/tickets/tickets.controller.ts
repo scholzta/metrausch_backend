@@ -1,7 +1,6 @@
 import { Body, Post, Get, Request, Controller, UseGuards, UnauthorizedException, Patch, Param, ForbiddenException, Delete } from '@nestjs/common';
 import { TicketsService } from './tickets.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
-import { CreateTicketDto } from './dto/create-ticket.dto';
 
 @Controller('tickets')
 export class TicketsController {

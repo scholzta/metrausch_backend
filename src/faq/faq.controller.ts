@@ -28,7 +28,6 @@ export class FaqController {
     return this.faqService.remove(+id);
   }
 
-  @UseGuards(JwtAuthGuard)
   @Post()
   create(@Body() createFaqDto: any) {
     return this.faqService.create({ ...createFaqDto });

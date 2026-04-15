@@ -24,12 +24,12 @@ export class FaqService {
 
   async findUnanswered(): Promise<Faq[]> {
      return await this.faqRepository.createQueryBuilder('faq')
-      .where('faq.answer = ""')
+      .where('faq.answer IS NULL')
       .getMany();
   }
   async findAnswered(): Promise<Faq[]> {
      return await this.faqRepository.createQueryBuilder('faq')
-      .where('faq.answer != ""')
+      .where('faq.answer IS NOT NULL')
       .getMany();
   }
 

@@ -1,4 +1,4 @@
-import { ForbiddenException, Injectable } from '@nestjs/common';
+import { UnauthorizedException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from 'src/users/users.service';
 import * as bcrypt from 'bcrypt';
@@ -21,7 +21,8 @@ export class AuthService {
           firstName: user.firstName,
           role: user.role
         }
-      }
-    } else return ForbiddenException
+      };
+    }
+    throw new UnauthorizedException('Invalid email or password')
   }
 }
