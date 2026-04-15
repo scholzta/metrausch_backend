@@ -44,9 +44,8 @@ export class BandsService {
   }
 
   async update(id: number, updateData: Partial<Band>): Promise<Band> {
-    const band = await this.findOne(id);
-    Object.assign(band, updateData);
-    return await this.bandRepository.save(band);
+    await this.bandRepository.update(id, updateData);
+    return this.findOne(id);
   }
 
   async remove(id: number): Promise<void> {

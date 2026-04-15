@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, UploadedFile, UseGuards, UseInterceptors } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, UploadedFile, UseGuards, UseInterceptors } from "@nestjs/common";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { diskStorage } from "multer";
 import { extname } from "path";
@@ -16,7 +16,7 @@ export class BandsController {
 
   @UseGuards(JwtAuthGuard)
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  async remove(@Param('id', ParseIntPipe) id: number) {
     return this.bandsService.remove(+id);
   }
 
@@ -38,9 +38,17 @@ export class BandsController {
 
   @UseGuards(JwtAuthGuard)
   @Patch(':id')
-  @UseInterceptors(FileInterceptor('image'))
-  update(
-    @Param('id') id: string,
+  @UseInterceptors(FileInterceptor('image', {
+    storage: diskStorage({
+      destination: './public/uploads/bands',
+      filename: (req, file, cb) => {
+        const randomName = Array(32).fill(null).map(() => (Math.round(Math.random() * 16)).toString(16)).join('');
+        return cb(null, `${randomName}${extname(file.originalname)}`);
+      }
+    })
+  }))
+  async update(
+    @Param('id', ParseIntPipe) id: number,
     @Body() updateBandDto: any,
     @UploadedFile() file: Express.Multer.File
   ) {
@@ -48,6 +56,6 @@ export class BandsController {
     if (file) {
       updateData.imageUrl = `/uploads/bands/${file.filename}`;
     }
-    return this.bandsService.update(+id, updateData);
+    return this.bandsService.update(id, updateData);
   }
 }
