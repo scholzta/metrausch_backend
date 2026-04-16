@@ -1,6 +1,7 @@
 import { Body, Post, Get, Request, Controller, UseGuards, UnauthorizedException, Patch, Param, ForbiddenException, Delete } from '@nestjs/common';
 import { TicketsService } from './tickets.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { CreateTicketDto } from './dto/create-ticket.dto';
 
 @Controller('tickets')
 export class TicketsController {
@@ -10,6 +11,13 @@ export class TicketsController {
   @Post()
   create(@Body() createTicketDto: any, @Request() req) {
     return this.ticketsService.create(createTicketDto, req.user);
+  }
+
+  @Post('withRegister')
+  createWithRegister(@Body() body: any, @Request() req) {
+    const { user, ...createTicketDto} = body;
+    console.log('Controller user:', user);
+    return this.ticketsService.createWithRegister(createTicketDto, user);
   }
 
   @UseGuards(JwtAuthGuard)

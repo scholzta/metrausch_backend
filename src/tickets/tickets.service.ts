@@ -35,6 +35,28 @@ export class TicketsService {
     return await this.ticketRepository.save(ticket);
   }
 
+  async createWithRegister(createTicketDto: any, user: User) {
+    console.log("Service")
+    console.log(user);
+    if (createTicketDto.promoCode) {
+      const code =  await this.codeRepository.createQueryBuilder('promo_codes')
+      .where('promo_codes.secret = :secret', { secret: createTicketDto.promoCode})
+      .getOne();
+
+      if (code) {
+        if (code.usedCount >= code.usageLimit) return new BadRequestException("Code is invalid")
+        createTicketDto.price = createTicketDto.price - (createTicketDto.price /100 * code.discountPercent)
+        code.usedCount += 1;
+        this.codeRepository.update(code.id, code)
+      }
+    }
+
+    const ticket = this.ticketRepository.create({
+      ...createTicketDto,
+      user: user,
+    });
+    return await this.ticketRepository.save(ticket);
+  }
   async findAllByUser(user: User) {
     return await this.ticketRepository.find({
       where: { user: { id: user.id } },
