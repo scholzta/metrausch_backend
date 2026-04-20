@@ -54,6 +54,9 @@ export class Ticket {
   @Column({ type: 'decimal', precision: 10, scale: 2, default: 0 })
   price: number;
 
+  @Column({ default: ''})
+  promoCode: string;
+
   @CreateDateColumn()
   createdAt: Date;
 
