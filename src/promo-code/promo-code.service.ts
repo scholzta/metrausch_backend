@@ -12,10 +12,8 @@ export class PromoCodeService {
   ) {}
 
   async create(createPromoCodeDto: any, user: User) {
-    const secret = generateRandomString(8);
     const code = this.codeRepository.create({
       ...createPromoCodeDto,
-      secret: secret,
       user: user,
     });
     return await this.codeRepository.save(code);
